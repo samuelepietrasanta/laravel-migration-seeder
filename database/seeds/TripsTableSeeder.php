@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Trip;
+use Faker\Generator as Faker;
 
 class TripsTableSeeder extends Seeder
 {
@@ -10,40 +11,15 @@ class TripsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $trips =[
-            [
-                "destinazione" => "Roma",
-                "data_di_partenza" => "2021/12/10",
-                "prezzo" => "56.99",
-            ],
-            [
-                "destinazione" => "Bali",
-                "data_di_partenza" => "2022/01/27",
-                "prezzo" => "1459.00",
-            ],
-            [
-                "destinazione" => "Liverpool",
-                "data_di_partenza" => "2022/10/01",
-                "prezzo" => "100.00",
-            ],
-            [
-                "destinazione" => "New York",
-                "data_di_partenza" => "2022/02/14",
-                "prezzo" => "999.99",
-            ],
-            [
-                "destinazione" => "Tokyo",
-                "data_di_partenza" => "2021/12/20",
-                "prezzo" => "850.00",
-            ]
-        ];
-
-        foreach ($trips as $trip){
+        for($i=0 ; $i < 20 ; $i++){
             $newTrip = new Trip();
+            $newTrip->destinazione = $faker->country();
+            $newTrip->data_di_partenza = $faker->date();
+            $newTrip->prezzo = $faker->randomFloat(2,10.00,1000.00);
 
-            $newTrip -> fill($trip);
+
             $newTrip->save();
 
         }
